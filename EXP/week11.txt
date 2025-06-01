@@ -1,38 +1,27 @@
-package am;
+package PACKAGE1;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 public class week11 {
 
-	public static void main(String[] args)throws InterruptedException {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) {
 		WebDriver driver=new ChromeDriver();
-		Actions builder=new Actions(driver);
-		driver.get("https://www.google.co.in/");
-		WebElement searchbar=driver.findElement(By.name("q"));
-		searchbar.sendKeys("Myntra");
-		searchbar.submit();
-		Thread.sleep(3000);
-		WebElement profileHyperlink=driver.findElement(By.xpath("//span[normalize-space()='profile'])[1]"));
-		profileHyperlink.click();
-		WebElement loginBtn=driver.findElement(By.xpath("//a[normalize-space()='login/signup'][1]"));
+		driver.get("https://www.myntra.com");
+		driver.manage().window().maximize();
+		WebElement profile=driver.findElement(By.className("desktop-userTitle"));
+		Actions action=new Actions(driver);
+		action.moveToElement(profile).build().perform();
+		WebElement loginBtn = driver.findElement(By.className("desktop-linkButton"));
 		loginBtn.click();
-		WebElement mobileNo=driver.findElement(By.xpath("(//input[@type='tel'][1]"));
-		mobileNo.sendKeys("7569610844");
-		WebElement continueBtn=driver.findElement(By.xpath("(//div[@class='submitBottomoption'][1]"));
-		continueBtn.click();
-		WebElement otp01=
-			driver.findElement(By.xpath("(//input@name='otp0'])[1]"));
-		WebElement otp02=
-				driver.findElement(By.xpath("(//input@name='otp1'])[1]"));
-		WebElement otp03=
-				driver.findElement(By.xpath("(//input@name='otp2'])[1]"));
-				
-				
-
+		WebElement phone=driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]/div/div/div[1]/div/div/div[2]/div[2]/div[1]/input"));
+		phone.sendKeys("9573107468");
+		WebElement press=driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]/div/div/div[1]/div/div/div[2]/div[2]/div[2]/input"));
+		press.click();
+		WebElement submit=driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div[2]/div/div/div[1]/div/div/div[2]/div[2]/div[3]"));
+		submit.click();
 	}
 
 }
-			
