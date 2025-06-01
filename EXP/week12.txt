@@ -1,39 +1,58 @@
-package CSE;
+package PACKAGE1;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-public class Week12 {
-public static void main(String[] args) throws InterruptedException, AWTException {
-	WebDriver driver= new ChromeDriver();
-	driver.get("https://smallpdf.com/word-to-pdf");
-	Thread.sleep(2000);
-	WebElement chooseFileBtn = driver.findElement(By.xpath("//*[@id=\"app\"]/div/div[1]/header/div[2]/div/div/label/form/label/div/div[2]/div[2]/button[1]/span"));
-	chooseFileBtn.click();
-	Thread.sleep(2000);
-	Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-	StringSelection str = new StringSelection("Downloads\\Selenium ATT Programms (12) (1)");
-	clipboard.setContents(str,null);
-	Thread.sleep(2000);
-	Robot robot = new Robot();
-	robot.keyPress(KeyEvent.VK_CONTROL);
-	robot.keyPress(KeyEvent.VK_V);
-	robot.keyPress(KeyEvent.VK_ENTER);
-	Thread.sleep(500);
-	WebElement convertToWord = driver.findElement(By.xpath("(//div[@class='sc-8s01yt-4 dNifye'])[1]"));
-	convertToWord.click();
-	WebElement choosePlan =
-			driver.findElement(By.xpath("(//span[@class='r5zwp6-3 iiSRjo'])[3]"));
-	choosePlan.click();
-	Thread.sleep(50000);
-	WebElement download = driver.findElement(By.xpath("/html/body/div[1]/div/div/div[3]/div[2]/div[2]/div/div/div[2]/div/div[2]/div[2]/div[1]/div/button[1]/div/span"));
-	download.click();
-	}
+
+public class week12 {
+    public static void main(String[] args) throws AWTException, InterruptedException {
+        // Start Chrome browser
+        WebDriver driver = new ChromeDriver();
+        driver.get("https://www.ilovepdf.com/word_to_pdf");
+        driver.manage().window().maximize();
+
+        // Click "Select WORD files"
+        WebElement pickFilesBtn = driver.findElement(By.id("pickfiles"));	
+        pickFilesBtn.click();
+
+        // Copy file path to clipboard
+        String filePath = "C:\\Users\\chand\\Downloads\\Selenium ATT Programms (12).docx";
+        StringSelection selection = new StringSelection(filePath);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(selection, null);
+
+        // Simulate CTRL+V and ENTER to upload
+        Robot robot = new Robot();
+        Thread.sleep(1000); // Wait for upload dialog
+
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+
+        // Wait for file to be uploaded and button to appear
+        Thread.sleep(7000); // Adjust timing based on your network
+
+        // Click on "Convert to PDF"
+        WebElement convertBtn = driver.findElement(By.id("processTask"));
+        convertBtn.click();
+
+        // Wait for conversion to finish and download button to appear
+        Thread.sleep(10000); // Adjust timing if needed
+
+        // Click "Download PDF"
+        WebElement downloadBtn = driver.findElement(By.linkText("Download PDF"));
+        downloadBtn.click();
+
+        System.out.println("Conversion completed and download started.");
+    }
 }
